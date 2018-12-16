@@ -85,9 +85,11 @@ def encode_decode(model, images):
     return decode(model, encode(model, images))
 
 def trainModel(vae_dfc, train_data, test_data, epoches = 15):
-# Create DFC VAE model and associated KL divergence loss operation
+    # Create DFC VAE model and associated KL divergence loss operation
     latent_dim = 5
+    global vae_dfc_kl_loss
     vae_dfc, vae_dfc_kl_loss = create_vae(latent_dim, return_kl_loss_op=True)
+    # Train the model
     vae_dfc.compile(optimizer='rmsprop', loss=vae_dfc_loss)
     vae_dfc.fit(x=train_data, y=train_data, epochs=epoches, shuffle=True, validation_data=(test_data, test_data), verbose=2)
     return vae_dfc
