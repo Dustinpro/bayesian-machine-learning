@@ -34,6 +34,7 @@ def vae_loss(x, t_decoded):
 
 def vae_dfc_loss(x, t_decoded):
     '''Total loss for the DFC VAE'''
+    vae_dfc, vae_dfc_kl_loss = create_vae(latent_dim, return_kl_loss_op=True)
     return K.mean(perceptual_loss(x, t_decoded) + vae_dfc_kl_loss)
 
 
