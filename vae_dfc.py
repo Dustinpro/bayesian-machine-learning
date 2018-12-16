@@ -30,7 +30,7 @@ def create_vae(latent_dim, return_kl_loss_op=False):
     else:
         return model
 
-		def vae_loss(x, t_decoded):
+def vae_loss(x, t_decoded):
     '''Total loss for the plain VAE'''
     return K.mean(reconstruction_loss(x, t_decoded) + vae_kl_loss)
 
@@ -49,14 +49,14 @@ def reconstruction_loss(x, t_decoded):
 
 def perceptual_loss(x, t_decoded):
     '''Perceptual loss for the DFC VAE'''
-	# Load pre-trained preceptual model. A simple CNN for
-	# classifying MNIST handwritten digits.
-	pm = load_model('models/vae-opt/classifier.h5')
+    # Load pre-trained preceptual model. A simple CNN for
+    # classifying MNIST handwritten digits.
+    pm = load_model('models/vae-opt/classifier.h5')
 
-	# Names and weights of perceptual model layers 
-	# selected for calculating the perceptual loss.
-	selected_pm_layers = ['conv2d_6', 'conv2d_7']
-	selected_pm_layer_weights = [1.0, 1.0]
+    # Names and weights of perceptual model layers 
+    # selected for calculating the perceptual loss.
+    selected_pm_layers = ['conv2d_6', 'conv2d_7']
+    selected_pm_layer_weights = [1.0, 1.0]
 	
     outputs = [pm.get_layer(l).output for l in selected_pm_layers]
     model = Model(pm.input, outputs)
