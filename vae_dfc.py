@@ -8,9 +8,6 @@ from keras.models import load_model
 def create_vae(latent_dim, return_kl_loss_op=False):
     '''Creates a VAE able to auto-encode MNIST images and optionally its associated KL divergence loss operation.'''
 
-    if use_pretrained:
-        assert latent_dim == 5, 'latent_dim must be 5 if pre-trained VAEs are used'
-    
     encoder = vae_util.create_encoder(latent_dim)
     decoder = vae_util.create_decoder(latent_dim)
     sampler = vae_util.create_sampler()
