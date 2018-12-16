@@ -84,8 +84,9 @@ def encode_decode(model, images):
     '''Encodes and decodes an image with the given auto-encoder model'''
     return decode(model, encode(model, images))
 
-def train(train_data, test_data, epoches = 15):
+def trainedModel(vae_dfc, vae_dfc_kl_loss, train_data, test_data, epoches = 15):
     latent_dim = 5
     vae_dfc, vae_dfc_kl_loss = create_vae(latent_dim, return_kl_loss_op=True)
     vae_dfc.compile(optimizer='rmsprop', loss=vae_dfc_loss)
     vae_dfc.fit(x=train_data, y=train_data, epochs=epoches, shuffle=True, validation_data=(test_data, test_data), verbose=2)
+    return vae_dfc
