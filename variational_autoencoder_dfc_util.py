@@ -22,7 +22,8 @@ def plot_image_rows(images_list, title_list):
     
     def plot_image_row(images, title):
         plt.figure(figsize=(cols, 3))
-        plt.gcf().suptitle(title)
+        if title:
+            plt.gcf().suptitle(title)
         for i, img in enumerate(images):
             plt.subplot(rows, cols, i + 1)
             plt.imshow(img[:,:,0], cmap='Greys_r')
